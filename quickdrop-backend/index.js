@@ -4,7 +4,7 @@ import filemodel from "./model/filemodel.js"
 import multer from 'multer'
 import Connect from "./database/db.js"
 import cors from 'cors';
-import path from "path";
+// import path from "path";
 const app = express();
 dotenv.config()
 const storage = multer.diskStorage({
@@ -63,11 +63,11 @@ app.get("/download/:code",async (req,res)=>{
     })
 })
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname,'/quickdrop-frontend/dist')))
-app.get("*",(req,res)=>{
-    res.sendFile(path.join(__dirname,"frontend","dist","index.html"))
-})
+// const __dirname = path.resolve();
+// app.use(express.static(path.join(__dirname,'/quickdrop-frontend/dist')))
+// app.get("*",(req,res)=>{
+//     res.sendFile(path.join(__dirname,"frontend","dist","index.html"))
+// })
 app.listen(port, (req, res) => {
     console.log(`Server running on port ${port}`)
 })
