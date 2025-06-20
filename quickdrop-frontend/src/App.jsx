@@ -24,13 +24,13 @@ const App = () => {
       files.map(async file => {
         console.log("Uploading:", file);
         const randomCode = Math.floor(10000 + Math.random() * 90000).toString();
-        setGeneratedCode(randomCode);
         const formData = new FormData();
         formData.append('file', file)
         const res = await axios.post(`http://127.0.0.1:5000/upload/${randomCode}`, formData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         console.log(res.data);
+        setGeneratedCode(randomCode+res.data.message);
       })
     }
   };

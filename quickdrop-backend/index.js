@@ -34,7 +34,7 @@ app.post('/upload/:code',upload.single('file') ,async (req,res)=>{
     }    
     const file =await filemodel.create(object);
     // console.log(file)
-    return res.status(200).json({path:`${backendurl}/files/${file._id}`})
+    return res.status(200).json({path:`${backendurl}/files/${file._id}`,message:"Files are uploaded to the backend"})
 })
 app.get("/files/:id",async (req,res)=>{
     try{
