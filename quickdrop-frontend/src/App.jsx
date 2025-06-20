@@ -8,6 +8,7 @@ const App = () => {
   const [generatedCode, setGeneratedCode] = useState("");
   const [url, setUrl] = useState("");
   const [message, setErrorMessage] = useState("")
+  const viteUrl = import.meta.env.VITE_BACKEND;
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(prevFiles => [...prevFiles, ...selectedFiles]);
@@ -26,7 +27,7 @@ const App = () => {
         const randomCode = Math.floor(10000 + Math.random() * 90000).toString();
         const formData = new FormData();
         formData.append('file', file)
-        const res = await axios.post(`http://127.0.0.1:5000/upload/${randomCode}`, formData, {
+        const res = await axios.post(`${viteUrl}/upload/${randomCode}`, formData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
         console.log(res.data);
@@ -39,7 +40,7 @@ const App = () => {
     if (code.length == 0) {
       return;
     }
-    const { data } = await axios.get(`http://127.0.0.1:5000/download/${code}`);
+    const { data } = await axios.get(`${viteUrl}/download/${code}`);
     if (data.message) {
       setErrorMessage("Incorrect Code entered.")
     }
