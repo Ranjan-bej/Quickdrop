@@ -18,7 +18,9 @@ const storage = multer.diskStorage({
 })
 Connect();
 const upload = multer({ storage:storage })
-app.use(cors())
+app.use(cors({
+    origin:["https://quickdrop-chi.vercel.app"]
+}))
 app.use(express.json())
 // app.use(express.urlencoded({ extended: true }))
 const port = process.env.PORT
