@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 Connect();
 const upload = multer({ storage:storage })
 app.use(cors({
-    origin:["https://quickdrop-chi.vercel.app","http://localhost:5173"]
+    origin:[`${process.env.ORIGIN}`,"http://localhost:5173"]
 }))
 app.use(express.json())
 // app.use(express.urlencoded({ extended: true }))
@@ -28,7 +28,7 @@ const backendurl = process.env.BACKENDURL;
 app.get("/", (req, res) => {
     res.send("Hello World")
 })
-app.post('/upload/:code',upload.single('file') ,async (req,res)=>{
+app.post('/api/upload/:code',upload.single('file') ,async (req,res)=>{
     const object ={ 
         path:req.file.path,
         name:req.file.originalname,
@@ -38,7 +38,7 @@ app.post('/upload/:code',upload.single('file') ,async (req,res)=>{
     // console.log(file)
     return res.status(200).json({path:`${backendurl}/files/${file._id}`,message:"Files are uploaded to the backend"})
 })
-app.get("/files/:id",async (req,res)=>{
+app.get("/api/files/:id",async (req,res)=>{
     try{
         const file = await filemodel.findById(req.params.id)
         if(!file){
@@ -52,7 +52,7 @@ app.get("/files/:id",async (req,res)=>{
         
     }
 })
-app.get("/download/:code",async (req,res)=>{
+app.get("/api/download/:code",async (req,res)=>{
     const cd = req.params.code;
     const file = await filemodel.find({code:cd})
     if(file.length==0){

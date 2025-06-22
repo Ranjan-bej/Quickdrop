@@ -31,7 +31,7 @@ const App = () => {
           headers: { "Content-Type": "multipart/form-data" }
         });
         console.log(res.data);
-        setGeneratedCode(randomCode+res.data.message);
+        setGeneratedCode(randomCode);
       })
     }
   };
