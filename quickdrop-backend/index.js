@@ -36,7 +36,7 @@ app.post('/api/upload/:code',upload.single('file') ,async (req,res)=>{
     }    
     const file =await filemodel.create(object);
     // console.log(file)
-    return res.status(200).json({path:`${backendurl}/files/${file._id}`,message:"Files are uploaded to the backend"})
+    return res.status(200).json({path:`${backendurl}/api/files/${file._id}`,message:"Files are uploaded to the backend"})
 })
 app.get("/api/files/:id",async (req,res)=>{
     try{
@@ -61,7 +61,7 @@ app.get("/api/download/:code",async (req,res)=>{
     const id = file[0]._id;    
     res.json({
         name:file[0].name,
-        url:`${backendurl}/files/${id}`
+        url:`${backendurl}/api/files/${id}`
     })
 })
 
