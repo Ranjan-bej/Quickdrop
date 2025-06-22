@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node quickdrop-backend/index.js",
-    "build": "npm install && npm install --prefix quickdrop-frontend && npm run build --prefix quickdrop-frontend"
+    "build": "npm install"
   },
   "keywords": [],
   "author": "",
