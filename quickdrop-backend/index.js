@@ -61,7 +61,7 @@ app.get("/api/download/:code",async (req,res)=>{
     const id = file[0]._id;    
     res.json({
         name:file[0].name,
-        url:`${backendurl}/api/files/${id}`
+        url:`${backendurl}api/files/${id}`
     })
 })
 
