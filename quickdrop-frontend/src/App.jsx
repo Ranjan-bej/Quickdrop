@@ -108,7 +108,7 @@ const App = () => {
               ) : (
                 <div>
                   <p className="text-sm">Click to choose files</p>
-                  <p className="text-xs mt-1">Max total size: 100MB</p>
+                  <p className="text-xs mt-1">Max total size: 1MB</p>
                 </div>
               )}
               <input
@@ -145,7 +145,7 @@ const App = () => {
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               maxLength={6}
               className="w-full p-2 mb-4 rounded bg-[#0e0e1a] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter the 6-digit file code"
+              placeholder="Enter the 5-digit file code"
             />
             <button
               onClick={handleDownload}
@@ -171,7 +171,7 @@ const App = () => {
 
       <footer className="text-center text-gray-500 text-sm mt-8 mb-4">
         © 2025 QuickDrop. Sleek, secure file sharing.<br />
-        Files are automatically deleted 7 days after upload.
+        Files are automatically deleted 2 hours after upload.
       </footer>
     </div>
   );
