@@ -5,7 +5,9 @@ import Busboy from 'busboy';
 import fs from 'fs';
 import Connect from "./database/db.js"
 import cors from 'cors';
-// import path from "path";
+
+import cron from 'node-cron';
+import path from "path";
 const app = express();
 dotenv.config()
 
@@ -13,6 +15,43 @@ dotenv.config()
 if (!fs.existsSync('./uploads')) {
     fs.mkdirSync('./uploads');
 }
+
+// Cron job to run every hour
+cron.schedule('0 * * * *', () => {
+    console.log('Running file cleanup task');
+    const uploadsDir = './uploads';
+
+    fs.readdir(uploadsDir, (err, files) => {
+        if (err) {
+            console.error('Error reading uploads directory:', err);
+            return;
+        }
+
+        files.forEach(file => {
+            const filePath = path.join(uploadsDir, file);
+            fs.stat(filePath, (err, stats) => {
+                if (err) {
+                    console.error('Error getting file stats:', err);
+                    return;
+                }
+
+                const now = Date.now();
+                const fileAge = now - stats.birthtimeMs;
+                const sevenHours = 7 * 60 * 60 * 1000;
+
+                if (fileAge > sevenHours) {
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            console.error('Error deleting file:', err);
+                        } else {
+                            console.log(`Deleted expired file: ${file}`);
+                        }
+                    });
+                }
+            });
+        });
+    });
+});
 
 Connect();
 
